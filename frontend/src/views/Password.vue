@@ -2,7 +2,9 @@
   <div style="width: 40%">
     <el-card>
       <template #header>
-        <div style="font-size: 16px; font-weight: bold">修改密码</div>
+        <div style="font-size: 16px; font-weight: bold">
+          <span>修改密码</span>
+        </div>
       </template>
       <el-form
         ref="formRef"
@@ -46,7 +48,7 @@
 <script setup>
 import { reactive, ref } from 'vue'
 import { ElMessage } from 'element-plus'
-import { updatePasswordApi } from '@/api/user'
+import { updatePassword } from '@/api/user'
 import { logout } from '@/utils/auth'
 import router from '@/router'
 
@@ -79,7 +81,7 @@ const handleSubmit = async () => {
   if (!valid) return
   submitting.value = true
   try {
-    const res = await updatePasswordApi({
+    const res = await updatePassword({
       old_password: form.oldPassword,
       new_password: form.newPassword
     })
