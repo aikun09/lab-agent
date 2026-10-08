@@ -20,3 +20,14 @@ export function updateUserInfo(data) {
     data
   })
 }
+
+/**
+ * 修改密码
+ */
+export function updatePassword(data) {
+  return request({
+    url: '/api/user/password',
+    method: 'put',
+    data
+  })
+}

@@ -24,7 +24,8 @@
             <template #dropdown>
               <el-dropdown-menu>
                 <el-dropdown-item command="profile">个人信息</el-dropdown-item>
-                <el-dropdown-item command="logout">退出登录</el-dropdown-item>
+                <el-dropdown-item command="password">修改密码</el-dropdown-item>
+                <el-dropdown-item divided command="logout">退出登录</el-dropdown-item>
               </el-dropdown-menu>
             </template>
           </el-dropdown>
@@ -70,6 +71,8 @@ const { userInfo } = useUser()
 const handleCommand = (command) => {
   if (command === 'profile') {
     router.push('/manager/profile')
+  } else if (command === 'password') {
+    router.push('/manager/password')
   } else if (command === 'logout') {
     logout()
     router.push('/login')
