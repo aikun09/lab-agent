@@ -1,0 +1,40 @@
+# ========== Python ==========
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# 虚拟环境
+.venv/
+venv/
+env/
+
+# 环境变量
+.env
+.env.local
+.env.*.local
+
+# ========== Node / Frontend ==========
+node_modules/
+dist/
+build/
+.next/
+nuxt/
+
+# 日志
+*.log
+npm-debug.log*
+yarn-debug.log*
+
+# ========== IDE / 编辑器 ==========
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# ========== 系统 ==========
+.DS_Store
+Desktop.ini
+ehthumbs.db
