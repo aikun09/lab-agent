@@ -20,7 +20,9 @@ def get_user_info(user: User) -> UserResponse:
 
 
 def update_user_info(db: Session, user: User, data: UserUpdateRequest):
-    user_dict = data.model_dump(exclude_none=True)  # pydantic对象转换成字典
+    user_dict = data.model_dump(
+        exclude_none=True, exclude={"role", "status"}
+    )  # pydantic对象转换成字典
     for filed, value in user_dict.items():
         setattr(user, filed, value)
     db.commit()

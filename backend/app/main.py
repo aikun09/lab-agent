@@ -3,6 +3,7 @@ from fastapi.exceptions import RequestValidationError
 from fastapi.staticfiles import StaticFiles
 from app.config import UPLOAD_DIR
 from app.models.user import User
+from app.models.lab import Lab
 from app.database import Base, engine
 from app.api import api
 from starlette.middleware.cors import CORSMiddleware
@@ -14,7 +15,7 @@ from app.common.exceptions import (
     global_exception_hadler, 
 )
 
-Base.metadata.create_all(bind=engine)  # 自动帮我们创建数据库和数据库表
+Base.metadata.create_all(bind=engine)  # 自动帮我们创建数据库表
 
 app = FastAPI()
 
