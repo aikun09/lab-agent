@@ -46,7 +46,7 @@
               <el-icon><Setting /></el-icon>
               设备列表管理
             </el-menu-item>
-            <el-menu-item index="/manager/user">
+            <el-menu-item v-if="userInfo?.role === 'admin'" index="/manager/user">
               <el-icon><User /></el-icon>
               用户管理
             </el-menu-item>
