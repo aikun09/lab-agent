@@ -42,7 +42,7 @@
               <el-icon><House /></el-icon>
               实验室管理
             </el-menu-item>
-            <el-menu-item index="/manager/equ">
+            <el-menu-item index="/manager/equipment" v-if="userInfo?.role === 'admin'">
               <el-icon><Setting /></el-icon>
               设备列表管理
             </el-menu-item>
