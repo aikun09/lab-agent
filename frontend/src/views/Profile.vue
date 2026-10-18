@@ -86,8 +86,8 @@ const beforeAvatarUpload = (file) => {
     ElMessage.error('只能上传图片')
     return false
   }
-  if (file.size / 1024 / 1024 > 2) {
-    ElMessage.error('上传图片大小不能超过2M')
+  if (file.size / 1024 / 1024 > 3) {
+    ElMessage.error('上传图片大小不能超过3M')
     return false
   }
   return true
