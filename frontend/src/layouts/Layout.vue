@@ -33,10 +33,19 @@
       </el-header>
       <el-container>
         <el-aside width="220px">
-          <el-menu router style="height: 100%" default-active="/manager/home">
+          <el-menu
+            router
+            :default-active="router.currentRoute.value.path"
+            style="height: 100%"
+            default-active="/manager/home"
+          >
             <el-menu-item index="/manager/home">
               <el-icon><icon-menu /></el-icon>
               系统首页
+            </el-menu-item>
+            <el-menu-item index="/manager/lablist" v-if="userInfo?.role === 'student'">
+              <el-icon><OfficeBuilding /></el-icon>
+              实验室列表
             </el-menu-item>
             <el-menu-item index="/manager/lab" v-if="userInfo?.role === 'admin'">
               <el-icon><House /></el-icon>
@@ -64,7 +73,7 @@
 import router from '@/router'
 import { logout } from '@/utils/auth'
 import { useUser } from '@/utils/user'
-import { Menu as IconMenu, House, Setting, User } from '@element-plus/icons-vue'
+import { Menu as IconMenu, House, Setting, User, OfficeBuilding } from '@element-plus/icons-vue'
 
 const { userInfo } = useUser()
 
