@@ -5,6 +5,7 @@ from app.config import UPLOAD_DIR
 from app.models.user import User
 from app.models.lab import Lab
 from app.models.equipment import Equipment
+from app.models.reservation import Reservation
 from app.database import Base, engine
 from app.api import api
 from starlette.middleware.cors import CORSMiddleware
@@ -13,7 +14,7 @@ from app.common.exceptions import (
     business_exception_hadler,
     http_exception_hadler,
     validation_exception_hadler,
-    global_exception_hadler, 
+    global_exception_hadler,
 )
 
 Base.metadata.create_all(bind=engine)  # 自动帮我们创建数据库表
@@ -44,6 +45,7 @@ app.add_exception_handler(Exception, global_exception_hadler)
 
 # 挂载静态的文件目录  http://127.0.0.1:8000/uploads/xxx.jpg
 app.mount("/uploads", StaticFiles(directory=UPLOAD_DIR), name="uploads")
+
 
 @app.get("/")
 def root():
