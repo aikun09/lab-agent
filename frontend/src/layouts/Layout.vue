@@ -47,6 +47,10 @@
               <el-icon><OfficeBuilding /></el-icon>
               实验室列表
             </el-menu-item>
+            <el-menu-item index="/manager/my-reservation" v-if="userInfo?.role === 'student'">
+              <el-icon><Tickets /></el-icon>
+              我的预约
+            </el-menu-item>
             <el-menu-item index="/manager/lab" v-if="userInfo?.role === 'admin'">
               <el-icon><House /></el-icon>
               实验室管理
@@ -54,6 +58,10 @@
             <el-menu-item index="/manager/equipment" v-if="userInfo?.role === 'admin'">
               <el-icon><Setting /></el-icon>
               设备列表管理
+            </el-menu-item>
+            <el-menu-item index="/manager/audit-reservation" v-if="userInfo?.role === 'admin'">
+              <el-icon><DocumentChecked /></el-icon>
+              预约审核
             </el-menu-item>
             <el-menu-item index="/manager/user" v-if="userInfo?.role === 'admin'">
               <el-icon><User /></el-icon>
@@ -73,7 +81,7 @@
 import router from '@/router'
 import { logout } from '@/utils/auth'
 import { useUser } from '@/utils/user'
-import { Menu as IconMenu, House, Setting, User, OfficeBuilding } from '@element-plus/icons-vue'
+import { Menu as IconMenu, House, Setting, User, OfficeBuilding, Tickets, DocumentChecked } from '@element-plus/icons-vue'
 
 const { userInfo } = useUser()
 
