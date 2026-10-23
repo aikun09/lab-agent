@@ -31,7 +31,7 @@ def chat(data: ChatRequest):
     history = []
     for message in data.messages:
         if message.role in ("user", "assistant") and message.content.strip():
-            history.append(message.model_dump())
+            history.append(message)
     if not history:
         raise BusinessException(message="请输入您要对话的内容")
 
@@ -41,7 +41,7 @@ def chat(data: ChatRequest):
         res = client.chat.completions.create(
             model=settings.LLM_MODEL,
             messages=[
-                ChatMessage(role="assistant", content=SYSTEM_PROMPT).model_dump(),
+                ChatMessage(role="assistant", content=SYSTEM_PROMPT),
                 *history,
             ],
         )

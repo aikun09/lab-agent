@@ -43,6 +43,10 @@
               <el-icon><icon-menu /></el-icon>
               系统首页
             </el-menu-item>
+            <el-menu-item index="/manager/ai-chat">
+              <el-icon><ChatDotRound /></el-icon>
+              AI智能助手
+            </el-menu-item>
             <el-menu-item index="/manager/lablist" v-if="userInfo?.role === 'student'">
               <el-icon><OfficeBuilding /></el-icon>
               实验室列表
@@ -81,7 +85,7 @@
 import router from '@/router'
 import { logout } from '@/utils/auth'
 import { useUser } from '@/utils/user'
-import { Menu as IconMenu, House, Setting, User, OfficeBuilding, Tickets, DocumentChecked } from '@element-plus/icons-vue'
+import { Menu as IconMenu, House, Setting, User, OfficeBuilding, Tickets, DocumentChecked, ChatDotRound } from '@element-plus/icons-vue'
 
 const { userInfo } = useUser()
 
