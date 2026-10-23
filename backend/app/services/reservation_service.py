@@ -1,9 +1,11 @@
+import asyncio
 from datetime import datetime
 
 from sqlalchemy.orm import Session
 
 from app.common.exceptions import BusinessException
 from app.common.response import PageResponse
+from app.database import SessionLocal
 from app.models.equipment import Equipment
 from app.models.lab import Lab
 from app.models.reservation import Reservation
@@ -117,6 +119,7 @@ def cancel_reservation(db: Session, current_user: User, reservation_id: int):
     item.status = 3
     db.commit()
 
+
 def audit_reservation(db: Session, reservation_id: int, status: int):
     """管理员审核预约"""
     if status not in [1, 2]:
@@ -128,4 +131,29 @@ def audit_reservation(db: Session, reservation_id: int, status: int):
         raise BusinessException(message="当前状态不支持审核")
     item.status = status
     db.commit()
-    
+
+
+def expire_pending_reservations():
+    """批量取消过期的预约单"""
+    db = SessionLocal()
+    try:
+        now = datetime.now()
+        today = now.strftime("%Y-%m-%d")
+        time = now.strftime("%H:%M")
+        items = db.query(Reservation).filter(Reservation.status == 0).all()
+        changed = False
+        for item in items:
+            if item.date < today or (item.date == today and item.end_time <= time):
+                item.status = 3
+                changed = True
+        if changed:
+            db.commit()
+    finally:
+        db.close()
+
+
+async def run_expire_scan():
+    """1分钟扫描一次执行业务"""
+    while True:
+        expire_pending_reservations()
+        await asyncio.sleep(60)
