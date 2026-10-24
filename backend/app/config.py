@@ -12,6 +12,9 @@ class Settings(BaseSettings):
     LLM_API_KEY: str
     LLM_MODEL: str
     LLM_BASE_URL: str
+    EMBEDDING_API_KEY: str 
+    EMBEDDING_BASE_URL: str 
+    EMBEDDING_MODEL: str 
 
     model_config = SettingsConfigDict(
         env_file=BASE_DIR / ".env", env_file_encoding="utf-8"
