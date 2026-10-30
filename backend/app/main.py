@@ -1,5 +1,6 @@
 import asyncio
 from contextlib import asynccontextmanager
+import traceback
 
 from fastapi import FastAPI, HTTPException
 from fastapi.exceptions import RequestValidationError
@@ -19,7 +20,7 @@ from app.common.exceptions import (
     validation_exception_hadler,
     global_exception_hadler,
 )
-from app.services import reservation_service
+from app.services import kb_service, reservation_service
 from app.services.reservation_service import run_expire_scan
 
 Base.metadata.create_all(bind=engine)  # 自动帮我们创建数据库表
@@ -27,11 +28,15 @@ Base.metadata.create_all(bind=engine)  # 自动帮我们创建数据库表
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    task = asyncio.create_task(
-        reservation_service.run_expire_scan()
-    )  # 启动项目开启异步的扫描任务
-    yield
-    task.cancel()  # 关闭项目同时取消异步任务
+    # 启动项目开启异步的扫描任务
+    task = asyncio.create_task(reservation_service.run_expire_scan())
+    try:
+        yield
+    finally:
+        task.cancel()  # 关闭项目同时取消异步任务
+        await asyncio.gather(
+            task, return_exceptions=True
+        )  # 取消任务不再把 CanceledError 抛给 lifespan
 
 
 app = FastAPI(lifespan=lifespan)
